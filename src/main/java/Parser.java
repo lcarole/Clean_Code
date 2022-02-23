@@ -1,6 +1,22 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Parser {
+
+    public HashMap<String,Integer> converter = new HashMap<>();
+
+    public void initMap(){
+        converter.put(" _ | ||_|",0);
+        converter.put("    |  | ",1);
+        converter.put(" _  _||_ ",2);
+        converter.put(" _  _| _|",3);
+        converter.put("   |_|  |",4);
+        converter.put(" _ |_  _|",5);
+        converter.put(" _ |_ |_|",6);
+        converter.put(" _   |  |",7);
+        converter.put(" _ |_||_|",8);
+        converter.put(" _ |_| _|",9);
+    }
     public static ArrayList<ArrayList<String>> dataParser(ArrayList<String> fileContent) {
         ArrayList<ArrayList<String>> splitContent = new ArrayList<>();
         int compteur = 0;
