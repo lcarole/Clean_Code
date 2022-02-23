@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args []){
         ArrayList<String> fileContent = new ArrayList<>();
-        File file = new File("C:\\Users\\luigi\\Documents\\ESGI\\Clean Code\\Improved OCR\\src\\main\\resources\\fichier_test.txt");
+        File file = new File("src\\main\\resources\\fichier_test.txt");
         //System.out.println(file.getAbsolutePath());
         Scanner scanner = null;
         try {
