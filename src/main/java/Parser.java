@@ -95,4 +95,17 @@ public class Parser {
         }
         return code;
     }
+
+    public boolean checksum(int[] listNumber){
+        int result = 0;
+        for (int i = 0; i < listNumber.length; i++) {
+            if(listNumber[i] > 0) {
+                result += listNumber[i] * (listNumber.length - i);
+            }
+        }
+
+        if(result % 11 == 0)
+            return true;
+        return false;
+    }
 }
