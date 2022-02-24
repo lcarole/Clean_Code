@@ -14,16 +14,24 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while (scanner.hasNext()) {
+        while (scanner.hasNextLine()) {
             fileContent.add(scanner.nextLine());
         }
 
         ArrayList<ArrayList<String>> splitContent = Parser.dataParser(fileContent);
         ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
-        String[] numberValues = Parser.getNumberValues(splitNumber);
+        int[] numberValues = Parser.getNumberValues(splitNumber);
+
+        for (ArrayList<String> content: splitContent) {
+            System.out.println(content);
+        }
 
         for (ArrayList<String> strings : splitNumber) {
             System.out.println(strings);
+        }
+
+        for (int value: numberValues) {
+            System.out.print(value+"; ");
         }
 
 //        for (ArrayList<String> strings : splitContent) {

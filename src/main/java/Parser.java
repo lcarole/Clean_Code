@@ -5,15 +5,15 @@ public class Parser {
     private static final HashMap<String, Integer> converter = createMap();
 
     private static HashMap<String, Integer> createMap() {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        HashMap<String, Integer> map = new HashMap<>();
         map.put(
                 " _ " +
                 "| |" +
                 "|_|", 0);
         map.put(
                 "   " +
-                " | " +
-                " | ", 1);
+                "  |" +
+                "  |", 1);
         map.put(
                 " _ " +
                 " _|" +
@@ -51,17 +51,13 @@ public class Parser {
 
     public static ArrayList<ArrayList<String>> dataParser(ArrayList<String> fileContent) {
         ArrayList<ArrayList<String>> splitContent = new ArrayList<>();
-        int count = 0;
-
         for (int i = 0; i < fileContent.size(); i = i + 4) {
             ArrayList<String> element = new ArrayList<>();
             for (int j = i; j < i + 3; j++) {
                 element.add(fileContent.get(j));
             }
-            splitContent.add(count, element);
-            count++;
+            splitContent.add(element);
         }
-
         return splitContent;
     }
 
@@ -85,9 +81,18 @@ public class Parser {
         return result;
     }
 
-    public static String[] getNumberValues(ArrayList<ArrayList<String>> splitNumber) {
-
-
-        return new String[10];
+    public static int[] getNumberValues(ArrayList<ArrayList<String>> splitNumber) {
+        int[] code = new int[9];
+        for (int i = 0; i < 9; i++) {
+            StringBuilder content = new StringBuilder();
+            for (ArrayList<String> colonne: splitNumber) {
+                content.append(colonne.get(i));
+            }
+            if(converter.get(content.toString()) != null)
+                code[i] = converter.get(content.toString());
+            else
+                code[i] = -1;
+        }
+        return code;
     }
 }
