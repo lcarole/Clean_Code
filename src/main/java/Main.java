@@ -1,10 +1,24 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        HashMap<String,Integer> converter = new HashMap<>();
+
+        converter.put(" _ | ||_|",0);
+        converter.put("    |  | ",1);
+        converter.put(" _  _||_ ",2);
+        converter.put(" _  _| _|",3);
+        converter.put("   |_|  |",4);
+        converter.put(" _ |_  _|",5);
+        converter.put(" _ |_ |_|",6);
+        converter.put(" _   |  |",7);
+        converter.put(" _ |_||_|",8);
+        converter.put(" _ |_| _|",9);
+
         ArrayList<String> fileContent = new ArrayList<>();
         File file = new File("src\\main\\resources\\fichier_test.txt");
         //System.out.println(file.getAbsolutePath());
