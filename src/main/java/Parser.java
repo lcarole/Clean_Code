@@ -7,7 +7,6 @@ public class Parser {
 
         for (int i = 0; i < fileContent.size(); i = i + 4) {
             ArrayList<String> element = new ArrayList<>();
-            System.out.println(i);
             for (int j = i; j < i + 3; j++) {
                 element.add(fileContent.get(j));
             }

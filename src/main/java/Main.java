@@ -21,7 +21,6 @@ public class Main {
 
         ArrayList<String> fileContent = new ArrayList<>();
         File file = new File("src\\main\\resources\\fichier_test.txt");
-        //System.out.println(file.getAbsolutePath());
         Scanner scanner = null;
 
         try {
@@ -36,8 +35,19 @@ public class Main {
         ArrayList<ArrayList<String>> splitContent = Parser.dataParser(fileContent);
         ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
 
-        for (ArrayList<String> strings : splitNumber) {
-            System.out.println(strings);
+//        for (ArrayList<String> strings : splitNumber) {
+//            System.out.println(strings);
+//        }
+
+        for (ArrayList<String> strings : splitContent) {
+            for (int j = 0; j < strings.size(); j = j + 4) {
+                String premiereLigne = strings.get(j);
+                String secondeLigne = strings.get(j + 1);
+                String troisiemeLigne = strings.get(j + 2);
+
+                String element = premiereLigne + secondeLigne + troisiemeLigne;
+                System.out.println(converter.get(element));
+            }
         }
     }
 }
