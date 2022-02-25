@@ -29,16 +29,24 @@ public class Main {
         try {
             sortie = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", "UTF-8");
             for (ArrayList<String> content: splitContent) {
+                boolean isReadable = true;
                 ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(content);
                 int[] numberValues = Parser.getNumberValues(splitNumber);
                 for (int i: numberValues) {
-                    sortie.print(i);
-                    System.out.print(i);
+                    if(i > -1)
+                        sortie.print(i);
+                    else {
+                        sortie.print("?");
+                        isReadable = false;
+                    }
                 }
-                if(Parser.checksum(numberValues)){
-                    sortie.print(" ERR");
-                }
-                sortie.println();
+
+                if(!isReadable)
+                    sortie.println(" ILL");
+                else if(Parser.checksum(numberValues))
+                    sortie.println(" ERR");
+                else
+                    sortie.println();
             }
             sortie.flush();
             sortie.close();
