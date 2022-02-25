@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,19 +22,28 @@ public class Main {
         }
 
         ArrayList<ArrayList<String>> splitContent = Parser.dataParser(fileContent);
-        ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
-        int[] numberValues = Parser.getNumberValues(splitNumber);
+        /*ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
+        int[] numberValues = Parser.getNumberValues(splitNumber);*/
 
-        for (ArrayList<String> content: splitContent) {
-            System.out.println(content);
-        }
-
-        for (ArrayList<String> strings : splitNumber) {
-            System.out.println(strings);
-        }
-
-        for (int value: numberValues) {
-            System.out.print(value+"; ");
+        PrintWriter sortie = null;
+        try {
+            sortie = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", "UTF-8");
+            for (ArrayList<String> content: splitContent) {
+                ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(content);
+                int[] numberValues = Parser.getNumberValues(splitNumber);
+                for (int i: numberValues) {
+                    sortie.print(i);
+                    System.out.print(i);
+                }
+                if(Parser.checksum(numberValues)){
+                    sortie.print(" ERR");
+                }
+                sortie.println();
+            }
+            sortie.flush();
+            sortie.close();
+        } catch (IOException e) {
+            System.out.println("\nErreur : "+e.getMessage());
         }
 
 //        for (ArrayList<String> strings : splitContent) {
