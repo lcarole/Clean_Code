@@ -21,48 +21,39 @@ public class Main {
             fileContent.add(scanner.nextLine());
         }
 
-        ArrayList<ArrayList<String>> splitContent = Parser.dataParser(fileContent);
-        /*ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
-        int[] numberValues = Parser.getNumberValues(splitNumber);*/
+        ArrayList<ArrayList<String>> dataParsed = Parser.dataParser(fileContent);
+        PrintWriter output;
 
-        PrintWriter sortie = null;
         try {
-            sortie = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", "UTF-8");
-            for (ArrayList<String> content: splitContent) {
+            output = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", StandardCharsets.UTF_8);
+
+            for (ArrayList<String> content : dataParsed) {
                 boolean isReadable = true;
-                ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(content);
-                int[] numberValues = Parser.getNumberValues(splitNumber);
-                for (int i: numberValues) {
-                    if(i > -1)
-                        sortie.print(i);
+                ArrayList<ArrayList<String>> numbersParsed = Parser.numberParser(content);
+                int[] numbersValue = Parser.getNumbersValue(numbersParsed);
+
+                for (int i : numbersValue) {
+                    if (i > -1)
+                        output.print(i);
                     else {
-                        sortie.print("?");
+                        output.print("?");
                         isReadable = false;
                     }
                 }
 
-                if(!isReadable)
-                    sortie.println(" ILL");
-                else if(Parser.checksum(numberValues))
-                    sortie.println(" ERR");
+                if (!isReadable)
+                    output.println(" ILL");
+                else if (Parser.checksum(numbersValue))
+                    output.println(" ERR");
                 else
-                    sortie.println();
+                    output.println();
             }
-            sortie.flush();
-            sortie.close();
-        } catch (IOException e) {
-            System.out.println("\nErreur : "+e.getMessage());
-        }
 
-//        for (ArrayList<String> strings : splitContent) {
-//            for (int j = 0; j < strings.size(); j = j + 4) {
-//                String firstLine = strings.get(j);
-//                String secondLine = strings.get(j + 1);
-//                String thirdLine = strings.get(j + 2);
-//
-//                String element = firstLine + secondLine + thirdLine;
-//                System.out.println(converter.get(element));
-//            }
-//        }
+            output.flush();
+            output.close();
+
+        } catch (IOException e) {
+            System.out.println("\nErreur : " + e.getMessage());
+        }
     }
 }
