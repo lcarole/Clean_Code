@@ -17,11 +17,13 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while (scanner.hasNextLine()) {
-            fileContent.add(scanner.nextLine());
+        if (scanner != null) {
+            while (scanner.hasNextLine()) {
+                fileContent.add(scanner.nextLine());
+            }
         }
 
-        ArrayList<ArrayList<String>> dataParsed = Parser.dataParser(fileContent);
+        ArrayList<ArrayList<String>> dataParsed = UserStories.dataParser(fileContent);
         PrintWriter output;
 
         try {
@@ -29,8 +31,8 @@ public class Main {
 
             for (ArrayList<String> content : dataParsed) {
                 boolean isReadable = true;
-                ArrayList<ArrayList<String>> numbersParsed = Parser.numberParser(content);
-                int[] numbersValue = Parser.getNumbersValue(numbersParsed);
+                ArrayList<ArrayList<String>> numbersParsed = UserStories.numberParser(content);
+                int[] numbersValue = UserStories.getNumbersValue(numbersParsed);
 
                 for (int i : numbersValue) {
                     if (i > -1)
@@ -43,7 +45,7 @@ public class Main {
 
                 if (!isReadable)
                     output.println(" ILL");
-                else if (Parser.checksum(numbersValue))
+                else if (UserStories.checksum(numbersValue))
                     output.println(" ERR");
                 else
                     output.println();

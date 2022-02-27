@@ -31,7 +31,7 @@ public class MainTest {
             fileContent.add(scanner.nextLine());
         }
 
-        ArrayList<ArrayList<String>> dataParsed = Parser.dataParser(fileContent);
+        ArrayList<ArrayList<String>> dataParsed = UserStories.dataParser(fileContent);
         Assert.assertEquals(dataParsed.size(), 4); //Changer taille attendue en fonction du nombre de données dans le fichier test
     }
 }
