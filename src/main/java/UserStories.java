@@ -51,6 +51,7 @@ public class UserStories {
 
     public static ArrayList<ArrayList<String>> dataParser(ArrayList<String> fileContent) {
         ArrayList<ArrayList<String>> splitContent = new ArrayList<>();
+
         for (int i = 0; i < fileContent.size(); i = i + 4) {
             ArrayList<String> element = new ArrayList<>();
             for (int j = i; j < i + 3; j++) {
@@ -81,31 +82,32 @@ public class UserStories {
         return result;
     }
 
-    public static int[] getNumberValues(ArrayList<ArrayList<String>> splitNumber) {
+    public static int[] getNumbersValue(ArrayList<ArrayList<String>> splitNumber) {
         int[] code = new int[9];
+
         for (int i = 0; i < 9; i++) {
             StringBuilder content = new StringBuilder();
-            for (ArrayList<String> colonne: splitNumber) {
+            for (ArrayList<String> colonne : splitNumber) {
                 content.append(colonne.get(i));
             }
-            if(converter.get(content.toString()) != null)
+            if (converter.get(content.toString()) != null)
                 code[i] = converter.get(content.toString());
             else
                 code[i] = -1;
         }
+
         return code;
     }
 
-    public boolean checksum(int[] listNumber){
+    public static boolean checksum(int[] listNumber) {
         int result = 0;
+
         for (int i = 0; i < listNumber.length; i++) {
-            if(listNumber[i] > 0) {
+            if (listNumber[i] > 0) {
                 result += listNumber[i] * (listNumber.length - i);
             }
         }
 
-        if(result % 11 == 0)
-            return true;
-        return false;
+        return result % 11 == 0;
     }
 }

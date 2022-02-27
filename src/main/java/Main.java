@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,31 +21,39 @@ public class Main {
             fileContent.add(scanner.nextLine());
         }
 
-        ArrayList<ArrayList<String>> splitContent = UserStories.dataParser(fileContent);
-        ArrayList<ArrayList<String>> splitNumber = UserStories.numberParser(splitContent.get(0));
-        int[] numberValues = UserStories.getNumberValues(splitNumber);
+        ArrayList<ArrayList<String>> dataParsed = Parser.dataParser(fileContent);
+        PrintWriter output;
 
-        for (ArrayList<String> content: splitContent) {
-            System.out.println(content);
+        try {
+            output = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", StandardCharsets.UTF_8);
+
+            for (ArrayList<String> content : dataParsed) {
+                boolean isReadable = true;
+                ArrayList<ArrayList<String>> numbersParsed = Parser.numberParser(content);
+                int[] numbersValue = Parser.getNumbersValue(numbersParsed);
+
+                for (int i : numbersValue) {
+                    if (i > -1)
+                        output.print(i);
+                    else {
+                        output.print("?");
+                        isReadable = false;
+                    }
+                }
+
+                if (!isReadable)
+                    output.println(" ILL");
+                else if (Parser.checksum(numbersValue))
+                    output.println(" ERR");
+                else
+                    output.println();
+            }
+
+            output.flush();
+            output.close();
+
+        } catch (IOException e) {
+            System.out.println("\nErreur : " + e.getMessage());
         }
-
-        for (ArrayList<String> strings : splitNumber) {
-            System.out.println(strings);
-        }
-
-        for (int value: numberValues) {
-            System.out.print(value+"; ");
-        }
-
-//        for (ArrayList<String> strings : splitContent) {
-//            for (int j = 0; j < strings.size(); j = j + 4) {
-//                String firstLine = strings.get(j);
-//                String secondLine = strings.get(j + 1);
-//                String thirdLine = strings.get(j + 2);
-//
-//                String element = firstLine + secondLine + thirdLine;
-//                System.out.println(converter.get(element));
-//            }
-//        }
     }
 }
