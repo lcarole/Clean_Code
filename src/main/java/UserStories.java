@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Parser {
+public class UserStories {
     private static final HashMap<String, Integer> converter = createMap();
 
     private static HashMap<String, Integer> createMap() {

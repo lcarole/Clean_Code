@@ -18,9 +18,9 @@ public class Main {
             fileContent.add(scanner.nextLine());
         }
 
-        ArrayList<ArrayList<String>> splitContent = Parser.dataParser(fileContent);
-        ArrayList<ArrayList<String>> splitNumber = Parser.numberParser(splitContent.get(0));
-        int[] numberValues = Parser.getNumberValues(splitNumber);
+        ArrayList<ArrayList<String>> splitContent = UserStories.dataParser(fileContent);
+        ArrayList<ArrayList<String>> splitNumber = UserStories.numberParser(splitContent.get(0));
+        int[] numberValues = UserStories.getNumberValues(splitNumber);
 
         for (ArrayList<String> content: splitContent) {
             System.out.println(content);
