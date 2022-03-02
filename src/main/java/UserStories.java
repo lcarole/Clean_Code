@@ -115,7 +115,6 @@ public class UserStories {
     }
 
     public static void WriteResult(ArrayList<ArrayList<String>> dataParsed,String inputFileName){
-
         try {
             PrintWriter output = new PrintWriter("src\\main\\resources\\"+inputFileName+"_result", StandardCharsets.UTF_8);
 
@@ -149,7 +148,45 @@ public class UserStories {
         }
     }
 
+    public static void secondBehaviour(ArrayList<ArrayList<String>> dataParsed,String inputFileName){
+        try {
+            PrintWriter outputAuthorized = new PrintWriter("src\\main\\resources\\Authorized", StandardCharsets.UTF_8);
+            PrintWriter outputErrored = new PrintWriter("src\\main\\resources\\Errored", StandardCharsets.UTF_8);
+            PrintWriter outputUnknown = new PrintWriter("src\\main\\resources\\Unknown", StandardCharsets.UTF_8);
+            for (ArrayList<String> content : dataParsed) {
+                boolean isReadable = true;
+                ArrayList<ArrayList<String>> numbersParsed = UserStories.numberParser(content);
+                int[] numbersValue = UserStories.getNumbersValue(numbersParsed);
+                StringBuilder result = new StringBuilder();
+                for (int i : numbersValue) {
+                    if (i > -1)
+                        result.append(i);
+                    else {
+                        result.append("?");
+                        isReadable = false;
+                    }
+                }
 
+                if (!isReadable) {
+                    outputUnknown.println(result +" ILL");
+                }
+                else if (UserStories.checksum(numbersValue)) {
+                    outputErrored.println(result +" ERR");
+                }
+                else {
+                    outputAuthorized.println(result);
+                }
+            }
 
-
+            outputUnknown.flush();
+            outputUnknown.close();
+            outputErrored.flush();
+            outputErrored.close();
+            outputAuthorized.flush();
+            outputAuthorized.close();
+        }
+        catch (IOException e) {
+            System.out.println("\nErreur : " + e.getMessage());
+        }
+    }
 }

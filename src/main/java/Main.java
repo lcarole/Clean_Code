@@ -47,7 +47,19 @@ public class Main {
             }
         }
         else if(saisie.equals("2")){
+            for (File f: listFiles) {
+                try {
+                    scanner = new Scanner(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                while (scanner.hasNextLine()) {
+                    fileContent.add(scanner.nextLine());
+                }
 
+                ArrayList<ArrayList<String>> dataParsed = UserStories.dataParser(fileContent);
+                UserStories.secondBehaviour(dataParsed,f.getName().split("\\.")[0]);
+            }
         }
 
     }
