@@ -114,10 +114,10 @@ public class UserStories {
         return result % 11 == 0;
     }
 
-    public static void WriteResult(ArrayList<ArrayList<String>> dataParsed){
+    public static void WriteResult(ArrayList<ArrayList<String>> dataParsed,String inputFileName){
 
         try {
-            PrintWriter output = new PrintWriter("src\\main\\resources\\sortie_resultat.txt", StandardCharsets.UTF_8);
+            PrintWriter output = new PrintWriter("src\\main\\resources\\"+inputFileName+"_result", StandardCharsets.UTF_8);
 
             for (ArrayList<String> content : dataParsed) {
                 boolean isReadable = true;
@@ -148,4 +148,8 @@ public class UserStories {
             System.out.println("\nErreur : " + e.getMessage());
         }
     }
+
+
+
+
 }
