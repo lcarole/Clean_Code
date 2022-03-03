@@ -9,13 +9,13 @@ public class Main {
         ArrayList<File> listFiles = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         File file;
-        String saisie;
+        String input;
 
         do {
             System.out.println("Veuillez entrer le chemin vers le fichier en entrée (Laissez la ligne vide si vous avez terminée votre saisie) :");
-            saisie = scanner.nextLine();
-            if(!saisie.isBlank()) {
-                file = new File(saisie);
+            input = scanner.nextLine();
+            if(!input.isBlank()) {
+                file = new File(input);
                 if (file.exists())
                     listFiles.add(file);
                 else
@@ -23,15 +23,15 @@ public class Main {
             }
             else
                 break;
-        }while (!saisie.isBlank());
+        }while (!input.isBlank());
 
         //File file = new File("src\\main\\resources\\fichier_test.txt");
         System.out.println("Voulez-vous :");
         System.out.println("Taper 1 pour créer un fichier sortie pour chaque fichier entrée");
         System.out.println("Taper 2 pour regrouper les codes similaires");
-        saisie = scanner.nextLine();
+        input = scanner.nextLine();
 
-        if(saisie.equals("1")){
+        if(input.equals("1")){
             for (File f: listFiles) {
                 try {
                     scanner = new Scanner(f);
@@ -43,10 +43,10 @@ public class Main {
                 }
 
                 ArrayList<ArrayList<String>> dataParsed = UserStories.dataParser(fileContent);
-                UserStories.WriteResult(dataParsed,f.getName().split("\\.")[0]);
+                UserStories.writeResult(dataParsed,f.getName().split("\\.")[0]);
             }
         }
-        else if(saisie.equals("2")){
+        else if(input.equals("2")){
             for (File f: listFiles) {
                 try {
                     scanner = new Scanner(f);

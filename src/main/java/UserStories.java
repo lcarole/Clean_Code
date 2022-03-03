@@ -111,10 +111,10 @@ public class UserStories {
             }
         }
 
-        return result % 11 == 0;
+        return !(result % 11 == 0);
     }
 
-    public static void WriteResult(ArrayList<ArrayList<String>> dataParsed,String inputFileName){
+    public static void writeResult(ArrayList<ArrayList<String>> dataParsed, String inputFileName){
         try {
             PrintWriter output = new PrintWriter("src\\main\\resources\\"+inputFileName+"_result", StandardCharsets.UTF_8);
 
@@ -134,7 +134,7 @@ public class UserStories {
 
                 if (!isReadable)
                     output.println(" ILL");
-                else if (UserStories.checksum(numbersValue))
+                else if (!UserStories.checksum(numbersValue))
                     output.println(" ERR");
                 else
                     output.println();
